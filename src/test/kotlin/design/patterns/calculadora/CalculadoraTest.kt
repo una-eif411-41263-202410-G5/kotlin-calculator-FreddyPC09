@@ -1,6 +1,7 @@
-package design.patterns.singleton
+package design.patterns.calculadora
 
 import com.github.stefanbirkner.systemlambda.SystemLambda
+import design.patterns.design.patterns.calculadora.Calculadora
 import design.patterns.design.patterns.singleton.MyClass
 import design.patterns.design.patterns.singleton.Singleton
 import org.junit.jupiter.api.AfterEach
@@ -10,7 +11,7 @@ import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import kotlin.test.assertEquals
 
-class SingletonTest {
+class CalculadoraTest {
     private val standardOut = System.out
     private val outputStreamCaptor = ByteArrayOutputStream()
 
@@ -27,21 +28,16 @@ class SingletonTest {
     @Test
     fun `testing a class with only one instance`() {
         val output = SystemLambda.tapSystemOut {
-            Singleton.printName()
-            Singleton.courseName = "Programación Web"
-
-            var myClass1 = MyClass()
-
-            Singleton.courseName = "Programación Funcional"
-
-            var myClass2 = MyClass()
+            val calc = Calculadora()
+            println(calc.sumar(2, 3))
+            println(calc.sumar(3, -2))
+            println(calc.multiplicar(2,1))
+            println(calc.dividir(9,3))
         }
 
-        assertEquals("[SE INVOCA LA CLASE SOLO LA PRIMERA VEZ]\r\n" +
-                "Programación App Móvil\r\n" +
-                "[MÉTODO INICIAL]\r\n" +
-                "Programación Web\r\n" +
-                "[MÉTODO INICIAL]\r\n" +
-                "Programación Funcional\r\n",output)
+        assertEquals("5\r\n" +
+                "1\r\n" +
+                "2\r\n" +
+                "3\r\n",output)
     }
 }
